@@ -1,3 +1,9 @@
+if exists('b:did_ftplugin')
+  finish
+endif
+
+runtime! ftplugin/scheme.vim
+
 setlocal lispwords+=define*
 setlocal lispwords+=define-public
 setlocal lispwords+=define-module
