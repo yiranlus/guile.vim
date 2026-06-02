@@ -18,6 +18,31 @@ setlocal lispwords+=lambda*
 
 setlocal lispwords+=use-module
 
-" For Guix
-setlocal lispwords+=modify-phases
-setlocal lispwords+=add-after
+if get(g:, 'guile_use_guix', 0) == 1
+  setlocal lispoptions=expr:1
+  setlocal indentexpr=GetGuixIndent()
+
+  setlocal lispwords+=modify-phases
+  setlocal lispwords+=add-after
+endif
+
+function! GetGuixIndent()
+    let l:prev_lnum = prevnonblank(v:lnum - 1)
+    let l:prev_line = getline(l:prev_lnum)
+
+    let l:guix_package_fields = 'name\|version\|source\|build-system\|outputs\|arguments\|inputs\|native-inputs\|propagated-inputs\|native-search-paths\|search-paths\|replacement\|synopsis\|description\|home-page\|supported-systems\|license'
+
+    if l:prev_line =~# '(\s*\(' . l:guix_package_fields . '\)\>' || l:prev_line =~# '(\(source\|sha256\|git-reference\)'
+      let l:opens = count(l:prev_line, '(')
+      let l:closes = count(l:prev_line, ')')
+
+      if l:closes >= l:opens
+        return lispindent(v:lnum)
+      endif
+
+      return lispindent(v:lnum) - 1
+    endif
+
+    " Fallback to Vim's internal lisp alignment calculation
+    return lispindent(v:lnum)
+  endfunction

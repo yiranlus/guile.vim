@@ -12,19 +12,21 @@ endif
 
 setlocal iskeyword+=-
 
-syntax keyword schemeSyntax define*
-syntax keyword schemeSyntax define-public
-syntax keyword schemeSyntax define-module
-syntax keyword schemeSyntax define-accessor
-syntax keyword schemeSyntax define-class
-syntax keyword schemeSyntax define-enumeration
-syntax keyword schemeSyntax define-inlinable
-syntax keyword schemeSyntax define-syntax-parameter
+syntax keyword guileSyntax define*
+syntax keyword guileSyntax define-public
+syntax keyword guileSyntax define-module
+syntax keyword guileSyntax define-accessor
+syntax keyword guileSyntax define-class
+syntax keyword guileSyntax define-enumeration
+syntax keyword guileSyntax define-inlinable
+syntax keyword guileSyntax define-syntax-parameter
 
-syntax keyword schemeSyntax λ
-syntax keyword schemeSyntax lambda*
+syntax keyword guileSyntax λ
+syntax keyword guileSyntax lambda*
 
-syntax keyword schemeSyntax use-modules
+syntax keyword guileSyntax use-modules
+
+highlight def link guileSyntax Statement
 
 let b:current_syntax = "guile"
 
