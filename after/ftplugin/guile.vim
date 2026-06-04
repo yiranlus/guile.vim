@@ -23,7 +23,14 @@ if get(g:, 'guile_use_guix', 0) == 1
   setlocal indentexpr=GetGuixIndent()
 
   setlocal lispwords+=modify-phases
+
   setlocal lispwords+=add-after
+  setlocal lispwords+=replace
+
+  setlocal lispwords+=with-imported-modules
+  setlocal lispwords+=with-extensions
+
+  setlocal lispwords+=wrap-program
 endif
 
 function! GetGuixIndent()
@@ -32,7 +39,7 @@ function! GetGuixIndent()
 
     let l:guix_package_fields = 'name\|version\|source\|build-system\|outputs\|arguments\|inputs\|native-inputs\|propagated-inputs\|native-search-paths\|search-paths\|replacement\|synopsis\|description\|home-page\|supported-systems\|license'
 
-    if l:prev_line =~# '(\s*\(' . l:guix_package_fields . '\)\>' || l:prev_line =~# '(\(source\|sha256\|git-reference\)'
+    if l:prev_line =~# '(\s*\(' . l:guix_package_fields . '\)\>' || l:prev_line =~# '(\(git-reference\)'
       let l:opens = count(l:prev_line, '(')
       let l:closes = count(l:prev_line, ')')
 
